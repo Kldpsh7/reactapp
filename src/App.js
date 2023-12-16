@@ -52,7 +52,7 @@ const App = () => {
       <h2>Let's get started!</h2>
       <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler}/>
       {expenses.map(e=>{
-        return e.date.getFullYear().toString()==filteredYear? <ExpenseItem key={e.id} title={e.title} date={e.date} amount={e.amount} place={e.place}/> : null
+        return e.date.getFullYear().toString()===filteredYear? <ExpenseItem key={e.id} title={e.title} date={e.date} amount={e.amount} place={e.place}/> : null
       })}
     </div>
   );
