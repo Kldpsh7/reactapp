@@ -35,8 +35,13 @@ const ExpenseForm = ()=>{
         })
     }
 
+    const formSubmit = e=>{
+        e.preventDefault()
+        console.log(userInput)
+    }
+
     return (
-        <form>
+        <form onSubmit={formSubmit}>
             <div className="new-expense__controls">
                 <div className="new-expense__control">
                     <label>Title</label>
