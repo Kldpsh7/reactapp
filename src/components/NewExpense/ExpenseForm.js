@@ -36,16 +36,28 @@ const ExpenseForm = (props)=>{
     }
 
     const formSubmit = e=>{
-        e.preventDefault()
+        e.preventDefault();
         props.onNewExpense(userInput);
         setInput(prevState=>{
             return({title:'',amount:'',date:'',place:''})
-        })
+        });
+        e.target.firstElementChild.className='new-expense__controls hide';
+        e.target.lastElementChild.firstElementChild.className='';
+    }
+
+    const cancelExpense = e=>{
+        e.target.parentElement.parentElement.className='new-expense__controls hide';
+        e.target.parentElement.parentElement.parentElement.lastElementChild.firstElementChild.className='';
+    }
+
+    const showFrom = e =>{
+        e.target.parentElement.className='hide';
+        e.target.parentElement.parentElement.parentElement.firstElementChild.className='new-expense__controls';
     }
 
     return (
         <form onSubmit={formSubmit}>
-            <div className="new-expense__controls">
+            <div className="new-expense__controls hide">
                 <div className="new-expense__control">
                     <label>Title</label>
                     <input type="text" onChange={titleChangeHandler} value={userInput.title}/>
@@ -64,6 +76,13 @@ const ExpenseForm = (props)=>{
                 </div>
                 <div className="new-expense__actions">
                     <button type="submit" >Add Expense</button>
+                    <button type='button' onClick={cancelExpense}>Cancel</button>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <button type='button' onClick={showFrom}>Add New Expense</button>
                 </div>
             </div>
         </form>
