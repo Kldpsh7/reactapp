@@ -51,9 +51,9 @@ const App = () => {
       <NewExpense onNewExpense={newExpenseHandler}/>
       <h2>Let's get started!</h2>
       <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler}/>
-      {expenses.map(e=>{
-        return e.date.getFullYear().toString()===filteredYear? <ExpenseItem key={e.id} title={e.title} date={e.date} amount={e.amount} place={e.place}/> : null
-      })}
+      {expenses.map(e=>e.date.getFullYear().toString()===filteredYear && <ExpenseItem key={e.id} title={e.title} date={e.date} amount={e.amount} place={e.place}/>)}
+      {(expenses.filter(exp=>exp.date.getFullYear().toString()===filteredYear)).length===0 && <h2>No Expenses to Show for Selected Year</h2>}
+      {(expenses.filter(exp=>exp.date.getFullYear().toString()===filteredYear)).length===1 && <h2>Only 1 Expense. Add More  </h2>}
     </div>
   );
 }
