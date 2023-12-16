@@ -1,8 +1,9 @@
 import ExpenseItem from "./components/Expenses/ExpenseItem";
 import NewExpense from "./components/NewExpense/NewExpense";
+import { useState } from "react";
 
 const App = () => {
-  const expenses = [
+  const [expenses,updateExpenses] = useState([
     {
       title:'Car Insurance',
       date:new Date(2023,10,1),
@@ -27,11 +28,17 @@ const App = () => {
       amount:2,
       place:'Delhi'
     }
-  ]
+  ]);
 
+  const newExpenseHandler = expenseData=>{
+      console.log(expenseData)
+      updateExpenses(prevData=>{
+        return ([...prevData,expenseData])
+      })
+  }
   return (
     <div>
-      <NewExpense/>
+      <NewExpense onNewExpense={newExpenseHandler}/>
       <h2>Let's get started!</h2>
       {expenses.map(e=><ExpenseItem title={e.title} date={e.date} amount={e.amount} place={e.place}/>)}
     </div>

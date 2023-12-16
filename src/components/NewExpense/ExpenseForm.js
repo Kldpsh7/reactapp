@@ -2,7 +2,7 @@ import { useState } from 'react';
 import React from "react";
 import './ExpenseForm.css'
 
-const ExpenseForm = ()=>{
+const ExpenseForm = (props)=>{
     // const [enteredTitle,setTitle] = useState('');
     // const [enteredAmount,setAmount] = useState('');
     // const [enteredDate,setDate] = useState('');
@@ -37,7 +37,10 @@ const ExpenseForm = ()=>{
 
     const formSubmit = e=>{
         e.preventDefault()
-        console.log(userInput)
+        props.onNewExpense(userInput);
+        setInput(prevState=>{
+            return({title:'',amount:'',date:'',place:''})
+        })
     }
 
     return (
@@ -45,19 +48,19 @@ const ExpenseForm = ()=>{
             <div className="new-expense__controls">
                 <div className="new-expense__control">
                     <label>Title</label>
-                    <input type="text" onChange={titleChangeHandler}/>
+                    <input type="text" onChange={titleChangeHandler} value={userInput.title}/>
                 </div>
                 <div className="new-expense__control">
                     <label>Amount</label>
-                    <input type="number" onChange={amountChangeHandler}/>
+                    <input type="number" onChange={amountChangeHandler} value={userInput.amount}/>
                 </div>
                 <div className="new-expense__control">
                     <label>Date</label>
-                    <input type="Date" onChange={dateChangeHandler}/>
+                    <input type="Date" onChange={dateChangeHandler} value={userInput.date}/>
                 </div>
                 <div className="new-expense__control">
                     <label>Place</label>
-                    <input type="text" onChange={placeChangeHandler}/>
+                    <input type="text" onChange={placeChangeHandler} value={userInput.place}/>
                 </div>
                 <div className="new-expense__actions">
                     <button type="submit" >Add Expense</button>
