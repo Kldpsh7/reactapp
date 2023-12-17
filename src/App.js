@@ -1,7 +1,8 @@
 import ExpenseItem from "./components/Expenses/ExpenseItem";
 import NewExpense from "./components/NewExpense/NewExpense";
-import { useState } from "react";
+import React, { useState } from "react";
 import ExpensesFilter from "./components/Expenses/ExpenseFilter";
+import ExpensesChart from "./components/Expenses/ExpensesChart";
 
 const App = () => {
   const [expenses,updateExpenses] = useState([
@@ -46,14 +47,17 @@ const App = () => {
     setFilteredYear(selectedYear);
   }
 
+  const filteredExpenses = expenses.filter(e=>e.date.getFullYear().toString()===filteredYear);
+
   return (
     <div>
       <NewExpense onNewExpense={newExpenseHandler}/>
       <h2>Let's get started!</h2>
       <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler}/>
-      {expenses.map(e=>e.date.getFullYear().toString()===filteredYear && <ExpenseItem key={e.id} title={e.title} date={e.date} amount={e.amount} place={e.place}/>)}
-      {(expenses.filter(exp=>exp.date.getFullYear().toString()===filteredYear)).length===0 && <h2>No Expenses to Show for Selected Year</h2>}
-      {(expenses.filter(exp=>exp.date.getFullYear().toString()===filteredYear)).length===1 && <h2>Only 1 Expense. Add More  </h2>}
+      <ExpensesChart expenses={filteredExpenses}/>
+      {filteredExpenses.map(e=> <ExpenseItem key={e.id} title={e.title} date={e.date} amount={e.amount} place={e.place}/>)}
+      {filteredExpenses.length===0 && <h2>No Expenses to Show for Selected Year</h2>}
+      {filteredExpenses.length===1 && <h2>Only 1 Expense. Add More  </h2>}
     </div>
   );
 }
